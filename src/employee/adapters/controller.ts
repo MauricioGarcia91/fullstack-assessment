@@ -19,4 +19,14 @@ export class EmployeeController {
       next(error);
     }
   };
+
+  getAllEmployee = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const employees = await this.employeeUseCases.getAllEmployee();
+
+      res.json(employees);
+    } catch (error) {
+      next(error);
+    }
+  };
 }

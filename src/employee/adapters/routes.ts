@@ -13,3 +13,4 @@ const employeeController = new EmployeeController(employeeUseCases);
 export const employeeRouter = Router();
 
 employeeRouter.get('/:id', employeeController.getEmployeeById);
+employeeRouter.get('/', employeeController.getAllEmployee);

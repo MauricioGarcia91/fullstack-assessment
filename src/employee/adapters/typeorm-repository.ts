@@ -21,4 +21,16 @@ export class EmployeeTypeOrmRepository implements EmployeeRepository {
       throw `[EMPLOYEE-REPOSITORY] [getEmployeeById] ${error}`;
     }
   };
+
+  getAllEmployee = async () => {
+    try {
+      return await this.employeeRepository.find({
+        relations: {
+          department: true
+        }
+      });
+    } catch (error) {
+      throw `[EMPLOYEE-REPOSITORY] [getAllEmployee] ${error}`;
+    }
+  };
 }
