@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
+
 import {
   DATABASE_HOST,
   DATABASE_LOCAL_PORT,
@@ -8,6 +9,9 @@ import {
   DATABASE_NAME
 } from '@/config/index';
 
+import { User } from '@/users/domain/entity';
+import { Department } from './department/domain/entity';
+
 const AppDataSource = new DataSource({
   type: 'mysql',
   host: DATABASE_HOST,
@@ -15,7 +19,7 @@ const AppDataSource = new DataSource({
   username: DATABASE_USER,
   password: DATABASE_PASSWORD,
   database: DATABASE_NAME,
-  entities: [],
+  entities: [User, Department],
   synchronize: false,
   logging: false
 });
