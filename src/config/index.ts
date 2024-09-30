@@ -1,0 +1,8 @@
+export const {
+  API_PORT,
+  DATABASE_HOST,
+  DATABASE_LOCAL_PORT,
+  DATABASE_USER,
+  DATABASE_PASSWORD,
+  DATABASE_NAME
+} = process.env;

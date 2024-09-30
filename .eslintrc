@@ -1,0 +1,11 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "extends": ["semistandard", "plugin:@typescript-eslint/recommended"],
+  "plugins": ["@typescript-eslint"],
+  "rules": {
+    "indent": "off",
+    "semi": ["error", "always"],
+    "no-unused-vars": "off",
+    "space-before-function-paren": "off"
+  }
+}
