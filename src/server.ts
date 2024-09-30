@@ -1,10 +1,12 @@
 import express from 'express';
 import { API_PORT } from '@/config/index';
 import { departmentRouter } from './department/adapters/routes';
+import { employeeRouter } from './employee/adapters/routes';
 
 const app = express();
 
 app.use('/departments', departmentRouter);
+app.use('/employee', employeeRouter);
 
 export async function initServer() {
   return new Promise<void>((resolve, reject) => {

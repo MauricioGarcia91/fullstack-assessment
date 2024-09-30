@@ -12,8 +12,8 @@ export class DepartmentTypeOrmRepository implements DepartmentRepository {
   getAllDepartment = async () => {
     try {
       return await this.repository.find();
-    } catch (err) {
-      throw `[DEPARTMENT-REPOSITORY] [getAllDepartment] ${err}`;
+    } catch (error) {
+      throw `[DEPARTMENT-REPOSITORY] [getAllDepartment] ${error}`;
     }
   };
 }

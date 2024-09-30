@@ -1,4 +1,3 @@
-import { Department } from '@/department/domain/entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -8,8 +7,10 @@ import {
   JoinColumn
 } from 'typeorm';
 
-@Entity('user')
-export class User {
+import { Department } from '@/department/domain/entity';
+
+@Entity('employee')
+export class Employee {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -19,11 +20,11 @@ export class User {
   @Column({ type: 'text' })
   last_name: string;
 
-  @Column('datetime')
+  @Column({ type: 'datetime' })
   hire_date: Date;
 
   @Column({ type: 'text' })
-  photo: string;
+  phone: string;
 
   @Column({ type: 'text' })
   address: string;

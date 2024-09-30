@@ -9,7 +9,7 @@ import {
   DATABASE_NAME
 } from '@/config/index';
 
-import { User } from '@/users/domain/entity';
+import { Employee } from '@/employee/domain/entity';
 import { Department } from './department/domain/entity';
 
 export const AppDataSource = new DataSource({
@@ -19,8 +19,8 @@ export const AppDataSource = new DataSource({
   username: DATABASE_USER,
   password: DATABASE_PASSWORD,
   database: DATABASE_NAME,
-  entities: [User, Department],
-  synchronize: false,
+  entities: [Employee, Department],
+  synchronize: true,
   logging: false
 });
 
