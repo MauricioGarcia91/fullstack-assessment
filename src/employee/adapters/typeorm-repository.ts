@@ -1,6 +1,7 @@
 import { Repository } from 'typeorm';
 import { EmployeeRepository } from '../domain/repository';
 import { Employee } from '../domain/entity';
+import { EmployeeInputData } from '../domain/definitions';
 
 export class EmployeeTypeOrmRepository implements EmployeeRepository {
   employeeRepository: Repository<Employee>;
@@ -31,6 +32,14 @@ export class EmployeeTypeOrmRepository implements EmployeeRepository {
       });
     } catch (error) {
       throw `[EMPLOYEE-REPOSITORY] [getAllEmployee] ${error}`;
+    }
+  };
+
+  createEmployee = async (employee: EmployeeInputData) => {
+    try {
+      return await this.employeeRepository.save(employee);
+    } catch (error) {
+      throw `[EMPLOYEE-REPOSITORY] [createEmployee] ${error}`;
     }
   };
 }

@@ -5,6 +5,8 @@ import { employeeRouter } from './employee/adapters/routes';
 
 const app = express();
 
+app.use(express.json());
+
 app.use('/departments', departmentRouter);
 app.use('/employee', employeeRouter);
 

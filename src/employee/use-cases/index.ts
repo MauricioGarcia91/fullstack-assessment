@@ -1,4 +1,5 @@
 import { EmployeeRepository } from '../domain/repository';
+import { EmployeeInputData } from '../domain/definitions.d';
 
 export class EmployeeUseCases {
   employeeRepository: EmployeeRepository;
@@ -13,5 +14,13 @@ export class EmployeeUseCases {
 
   getAllEmployee = async () => {
     return await this.employeeRepository.getAllEmployee();
+  };
+
+  createEmployee = async (employeeInputData: EmployeeInputData) => {
+    const employee = await this.employeeRepository.createEmployee(
+      employeeInputData
+    );
+
+    return await this.employeeRepository.getEmployeeById(employee.id);
   };
 }
