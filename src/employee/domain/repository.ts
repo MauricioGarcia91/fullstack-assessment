@@ -8,4 +8,5 @@ export interface EmployeeRepository {
     id: string,
     employee: Partial<EmployeeInputData>
   ) => Promise<Employee | null>;
+  deleteEmployee: (id: string) => Promise<Employee | null>;
 }

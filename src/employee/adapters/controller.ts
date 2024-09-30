@@ -79,4 +79,16 @@ export class EmployeeController {
       next(error);
     }
   };
+
+  deleteEmployee = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const employeeId = req.params.id;
+
+      const employee = await this.employeeUseCases.deleteEmployee(employeeId);
+
+      res.json(employee);
+    } catch (error) {
+      next(error);
+    }
+  };
 }

@@ -27,4 +27,8 @@ export class EmployeeUseCases {
   updateEmployee = async (id: string, employeeInputData: EmployeeInputData) => {
     return await this.employeeRepository.updateEmployee(id, employeeInputData);
   };
+
+  deleteEmployee = async (id: string) => {
+    return await this.employeeRepository.deleteEmployee(id);
+  };
 }

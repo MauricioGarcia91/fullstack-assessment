@@ -60,4 +60,21 @@ export class EmployeeTypeOrmRepository implements EmployeeRepository {
       throw `[EMPLOYEE-REPOSITORY] [updateEmployee] ${error}`;
     }
   };
+
+  deleteEmployee = async (id: string) => {
+    try {
+      const employeeDelete = await this.employeeRepository.findOneBy({
+        id
+      });
+
+      if (employeeDelete === null) {
+        return null;
+      }
+      await this.employeeRepository.delete({ id });
+
+      return employeeDelete;
+    } catch (error) {
+      throw `[EMPLOYEE-REPOSITORY] [deleteEmployee] ${error}`;
+    }
+  };
 }
