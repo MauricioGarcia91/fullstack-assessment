@@ -18,4 +18,18 @@ export class Validator<T extends ZodRawShape> {
 
     return { data };
   };
+
+  validatePartialSchema = async (input: unknown) => {
+    const { data, success, error } = await this.schema
+      .partial()
+      .safeParseAsync(input);
+
+    if (!success) {
+      return {
+        error: error.flatten().fieldErrors
+      };
+    }
+
+    return { data };
+  };
 }

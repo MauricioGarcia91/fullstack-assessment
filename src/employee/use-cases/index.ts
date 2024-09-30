@@ -23,4 +23,8 @@ export class EmployeeUseCases {
 
     return await this.employeeRepository.getEmployeeById(employee.id);
   };
+
+  updateEmployee = async (id: string, employeeInputData: EmployeeInputData) => {
+    return await this.employeeRepository.updateEmployee(id, employeeInputData);
+  };
 }

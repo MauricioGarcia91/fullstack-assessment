@@ -21,3 +21,4 @@ employeeRouter.get('/:id', employeeController.getEmployeeById);
 employeeRouter.get('/', employeeController.getAllEmployee);
 
 employeeRouter.post('/', employeeController.createEmployee);
+employeeRouter.put('/:id', employeeController.updateEmployee);

@@ -57,4 +57,26 @@ export class EmployeeController {
       next(error);
     }
   };
+
+  updateEmployee = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const input = req.body;
+      const employeeId = req.params.id;
+      const { data, error } = await this.validator.validatePartialSchema(input);
+
+      if (error) {
+        res.status(400).json({ error });
+        return;
+      }
+
+      const employee = await this.employeeUseCases.updateEmployee(
+        employeeId,
+        data as unknown as EmployeeInputData
+      );
+
+      res.status(201).json(employee);
+    } catch (error) {
+      next(error);
+    }
+  };
 }

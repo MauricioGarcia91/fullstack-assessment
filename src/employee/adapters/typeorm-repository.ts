@@ -42,4 +42,22 @@ export class EmployeeTypeOrmRepository implements EmployeeRepository {
       throw `[EMPLOYEE-REPOSITORY] [createEmployee] ${error}`;
     }
   };
+
+  updateEmployee = async (id: string, employee: Partial<EmployeeInputData>) => {
+    try {
+      const employeeToUpdate = await this.employeeRepository.findOneBy({
+        id
+      });
+
+      if (employeeToUpdate === null) {
+        return null;
+      }
+
+      Object.assign(employeeToUpdate, employee);
+
+      return await this.employeeRepository.save(employeeToUpdate);
+    } catch (error) {
+      throw `[EMPLOYEE-REPOSITORY] [updateEmployee] ${error}`;
+    }
+  };
 }
