@@ -5,9 +5,10 @@
   "rules": {
     "indent": "off",
     "semi": ["error", "always"],
-    "no-unused-vars": "off",
     "space-before-function-paren": "off",
     "brace-style": "off",
-    "no-throw-literal": "off"
+    "no-throw-literal": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-unused-vars": "off"
   }
 }
