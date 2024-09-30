@@ -12,7 +12,7 @@ import {
 import { User } from '@/users/domain/entity';
 import { Department } from './department/domain/entity';
 
-const AppDataSource = new DataSource({
+export const AppDataSource = new DataSource({
   type: 'mysql',
   host: DATABASE_HOST,
   port: Number(DATABASE_LOCAL_PORT),
