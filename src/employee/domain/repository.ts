@@ -4,11 +4,11 @@ export interface EmployeeRepository {
   getEmployeeById: (id: string) => Promise<Employee | null>;
   getAllEmployees: () => Promise<Employee[]>;
   createEmployee: (
-    employee: Omit<Employee, 'id|created_at'>
+    employee: Omit<Employee, 'id|is_active|created_at'>
   ) => Promise<Employee>;
   updateEmployee: (
     id: string,
-    employee: Partial<EmployeeInputData>
+    employee: Partial<Employee>
   ) => Promise<Employee | null>;
   deleteEmployee: (id: string) => Promise<Employee | null>;
 }

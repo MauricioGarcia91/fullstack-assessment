@@ -63,6 +63,7 @@ export class EmployeeController {
     try {
       const input = req.body;
       const employeeId = req.params.id;
+
       const { data, error } = await this.validator.validatePartialSchema(input);
 
       if (error) {

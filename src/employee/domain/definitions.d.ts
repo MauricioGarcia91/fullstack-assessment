@@ -8,6 +8,7 @@ export interface Employee {
   department: Department;
   phone: string;
   address: string;
+  is_active: boolean;
   created_at: Date;
 }
 

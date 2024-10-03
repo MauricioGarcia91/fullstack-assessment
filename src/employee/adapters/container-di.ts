@@ -1,6 +1,7 @@
 import { AppDataSource } from '@/data-source';
-import { Employee } from '../domain/entity';
+
 import { EmployeeTypeOrmRepository } from './typeorm-repository';
+import { Employee } from '../domain/entity';
 import { EmployeeUseCases } from '../use-cases';
 import { departmentUseCases } from '@/department/adapters/container-di';
 

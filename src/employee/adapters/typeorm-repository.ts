@@ -43,11 +43,9 @@ export class EmployeeTypeOrmRepository implements EmployeeRepository {
     }
   };
 
-  updateEmployee = async (id: string, employee: Partial<EmployeeInputData>) => {
+  updateEmployee = async (id: string, employee: Partial<Employee>) => {
     try {
-      const employeeToUpdate = await this.employeeRepository.findOneBy({
-        id
-      });
+      const employeeToUpdate = await this.getEmployeeById(id);
 
       if (employeeToUpdate === null) {
         return null;
@@ -70,6 +68,7 @@ export class EmployeeTypeOrmRepository implements EmployeeRepository {
       if (employeeDelete === null) {
         return null;
       }
+
       await this.employeeRepository.delete({ id });
 
       return employeeDelete;

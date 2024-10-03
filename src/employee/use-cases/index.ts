@@ -1,8 +1,8 @@
 import { EmployeeRepository } from '../domain/repository';
-import { EmployeeInputData } from '../domain/definitions.d';
 import { DepartmentUseCases } from '@/department/use-cases';
 import { Employee } from '../domain/entity';
 
+import { EmployeeInputData } from '../domain/definitions.d';
 export class EmployeeUseCases {
   employeeRepository: EmployeeRepository;
   departmentUseCases: DepartmentUseCases;
@@ -43,7 +43,21 @@ export class EmployeeUseCases {
   };
 
   updateEmployee = async (id: string, employeeInputData: EmployeeInputData) => {
-    return await this.employeeRepository.updateEmployee(id, employeeInputData);
+    const { department_id: departmentId, ...employee } = employeeInputData;
+
+    if (departmentId) {
+      const department = await this.departmentUseCases.getDepartmentById(
+        departmentId
+      );
+
+      if (!department) {
+        return null;
+      }
+
+      Object.assign(employee, { department });
+    }
+
+    return await this.employeeRepository.updateEmployee(id, employee);
   };
 
   deleteEmployee = async (id: string) => {

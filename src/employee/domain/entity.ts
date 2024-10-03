@@ -29,6 +29,9 @@ export class Employee {
   @Column({ type: 'text' })
   address: string;
 
+  @Column({ type: 'boolean', default: true })
+  is_active: boolean;
+
   @ManyToOne(() => Department)
   @JoinColumn({ name: 'department_id' })
   department: Department;
