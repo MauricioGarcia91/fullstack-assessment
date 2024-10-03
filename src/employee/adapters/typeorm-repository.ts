@@ -23,7 +23,7 @@ export class EmployeeTypeOrmRepository implements EmployeeRepository {
     }
   };
 
-  getAllEmployee = async () => {
+  getAllEmployees = async () => {
     try {
       return await this.employeeRepository.find({
         relations: {
@@ -31,11 +31,11 @@ export class EmployeeTypeOrmRepository implements EmployeeRepository {
         }
       });
     } catch (error) {
-      throw `[EMPLOYEE-REPOSITORY] [getAllEmployee] ${error}`;
+      throw `[EMPLOYEE-REPOSITORY] [getAllEmployees] ${error}`;
     }
   };
 
-  createEmployee = async (employee: EmployeeInputData) => {
+  createEmployee = async (employee: Employee) => {
     try {
       return await this.employeeRepository.save(employee);
     } catch (error) {

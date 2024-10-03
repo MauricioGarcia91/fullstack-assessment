@@ -28,9 +28,9 @@ export class EmployeeController {
     }
   };
 
-  getAllEmployee = async (req: Request, res: Response, next: NextFunction) => {
+  getAllEmployees = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const employees = await this.employeeUseCases.getAllEmployee();
+      const employees = await this.employeeUseCases.getAllEmployees();
 
       res.json(employees);
     } catch (error) {
@@ -41,6 +41,7 @@ export class EmployeeController {
   createEmployee = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const input = req.body;
+
       const { data, error } = await this.validator.validateSchema(input);
 
       if (error) {

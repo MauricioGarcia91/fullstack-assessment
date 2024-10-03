@@ -16,4 +16,14 @@ export class DepartmentTypeOrmRepository implements DepartmentRepository {
       throw `[DEPARTMENT-REPOSITORY] [getAllDepartment] ${error}`;
     }
   };
+
+  getDepartmentById = async (id: string) => {
+    try {
+      return await this.repository.findOneBy({
+        id
+      });
+    } catch (error) {
+      throw `[DEPARTMENT-REPOSITORY] [getDepartmentById] ${error}`;
+    }
+  };
 }

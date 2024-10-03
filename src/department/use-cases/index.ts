@@ -10,4 +10,8 @@ export class DepartmentUseCases {
   getAllDepartments = async () => {
     return await this.departmentRepository.getAllDepartment();
   };
+
+  getDepartmentById = async (id: string) => {
+    return await this.departmentRepository.getDepartmentById(id);
+  };
 }
