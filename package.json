@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "load-dev-env": "node ./src/script/create-env.mjs",
     "dev": "ts-node-dev --env-file=.env -r tsconfig-paths/register ./src/app.ts",
-    "start": "tsc && node ./build/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json",
+    "start": "node ./build/app.js"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +20,7 @@
     "eslint": "^8.57.1",
     "semistandard": "^17.0.0",
     "ts-node-dev": "2.0.0",
+    "tsc-alias": "^1.8.10",
     "typescript": "5.6.2"
   },
   "dependencies": {
@@ -26,6 +28,7 @@
     "morgan": "^1.10.0",
     "mysql2": "3.11.3",
     "reflect-metadata": "0.2.2",
+    "tsconfig-paths": "^4.2.0",
     "typeorm": "0.3.20",
     "zod": "^3.23.8"
   }

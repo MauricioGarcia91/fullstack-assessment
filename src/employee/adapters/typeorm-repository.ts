@@ -15,7 +15,9 @@ export class EmployeeTypeOrmRepository implements EmployeeRepository {
       return await this.employeeRepository.findOne({
         where: { id },
         relations: {
-          department: true
+          departments: {
+            department: true
+          }
         }
       });
     } catch (error) {
@@ -27,7 +29,9 @@ export class EmployeeTypeOrmRepository implements EmployeeRepository {
     try {
       return await this.employeeRepository.find({
         relations: {
-          department: true
+          departments: {
+            department: true
+          }
         }
       });
     } catch (error) {
@@ -43,17 +47,9 @@ export class EmployeeTypeOrmRepository implements EmployeeRepository {
     }
   };
 
-  updateEmployee = async (id: string, employee: Partial<Employee>) => {
+  updateEmployee = async (employee: Employee) => {
     try {
-      const employeeToUpdate = await this.getEmployeeById(id);
-
-      if (employeeToUpdate === null) {
-        return null;
-      }
-
-      Object.assign(employeeToUpdate, employee);
-
-      return await this.employeeRepository.save(employeeToUpdate);
+      return await this.employeeRepository.save(employee);
     } catch (error) {
       throw `[EMPLOYEE-REPOSITORY] [updateEmployee] ${error}`;
     }

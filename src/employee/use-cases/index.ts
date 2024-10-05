@@ -3,16 +3,22 @@ import { DepartmentUseCases } from '@/department/use-cases';
 import { Employee } from '../domain/entity';
 
 import { EmployeeInputData } from '../domain/definitions.d';
+import { EmployeeDepartmentUseCases } from '@/employee-department/use-cases';
+import { EmployeeDepartment } from '@/employee-department/domain/definitions.d';
+
 export class EmployeeUseCases {
   employeeRepository: EmployeeRepository;
   departmentUseCases: DepartmentUseCases;
+  employeeDepartmentUseCases: EmployeeDepartmentUseCases;
 
   constructor(
     employeeRepository: EmployeeRepository,
-    departmentUseCases: DepartmentUseCases
+    departmentUseCases: DepartmentUseCases,
+    employeeDepartmentUseCases: EmployeeDepartmentUseCases
   ) {
     this.employeeRepository = employeeRepository;
     this.departmentUseCases = departmentUseCases;
+    this.employeeDepartmentUseCases = employeeDepartmentUseCases;
   }
 
   getEmployeeById = async (id: string) => {
@@ -35,15 +41,31 @@ export class EmployeeUseCases {
     const { department_id: departmentId, ...newEmployee } = employeeInputData;
 
     const employee = await this.employeeRepository.createEmployee({
-      ...newEmployee,
-      department
+      ...newEmployee
     } as Employee);
+
+    await this.employeeDepartmentUseCases.create({
+      employee,
+      department,
+      created_at: employee.hire_date
+    } as EmployeeDepartment);
 
     return await this.employeeRepository.getEmployeeById(employee.id);
   };
 
   updateEmployee = async (id: string, employeeInputData: EmployeeInputData) => {
-    const { department_id: departmentId, ...employee } = employeeInputData;
+    const employeeToUpdate = await this.getEmployeeById(id);
+
+    if (!employeeToUpdate) {
+      return null;
+    }
+
+    const { department_id: departmentId, ...newEmployee } = employeeInputData;
+
+    const employee = await this.employeeRepository.updateEmployee({
+      ...employeeToUpdate,
+      ...newEmployee
+    } as Employee);
 
     if (departmentId) {
       const department = await this.departmentUseCases.getDepartmentById(
@@ -54,10 +76,14 @@ export class EmployeeUseCases {
         return null;
       }
 
-      Object.assign(employee, { department });
+      await this.employeeDepartmentUseCases.create({
+        employee,
+        department,
+        created_at: new Date()
+      } as EmployeeDepartment);
     }
 
-    return await this.employeeRepository.updateEmployee(id, employee);
+    return await this.employeeRepository.getEmployeeById(employee.id);
   };
 
   deleteEmployee = async (id: string) => {

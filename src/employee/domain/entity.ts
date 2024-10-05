@@ -3,11 +3,10 @@ import {
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
-  ManyToOne,
-  JoinColumn
+  OneToMany
 } from 'typeorm';
 
-import { Department } from '@/department/domain/entity';
+import { EmployeeDepartment } from '@/employee-department/domain/entity';
 
 @Entity('employee')
 export class Employee {
@@ -32,9 +31,11 @@ export class Employee {
   @Column({ type: 'boolean', default: true })
   is_active: boolean;
 
-  @ManyToOne(() => Department)
-  @JoinColumn({ name: 'department_id' })
-  department: Department;
+  @OneToMany(
+    () => EmployeeDepartment,
+    (employeeDepartment) => employeeDepartment.employee
+  )
+  departments: EmployeeDepartment[];
 
   @CreateDateColumn({ type: 'datetime' })
   created_at: Date;

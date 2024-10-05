@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { EmployeeDepartment } from '@/employee-department/domain/entity';
+import { Entity, OneToMany, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity('department')
 export class Department {

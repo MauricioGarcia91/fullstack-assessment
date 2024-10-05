@@ -1,4 +1,4 @@
-import { Employee, EmployeeInputData } from './definitions.d';
+import { Employee } from './definitions.d';
 
 export interface EmployeeRepository {
   getEmployeeById: (id: string) => Promise<Employee | null>;
@@ -6,9 +6,6 @@ export interface EmployeeRepository {
   createEmployee: (
     employee: Omit<Employee, 'id|is_active|created_at'>
   ) => Promise<Employee>;
-  updateEmployee: (
-    id: string,
-    employee: Partial<Employee>
-  ) => Promise<Employee | null>;
+  updateEmployee: (employee: Employee) => Promise<Employee>;
   deleteEmployee: (id: string) => Promise<Employee | null>;
 }
