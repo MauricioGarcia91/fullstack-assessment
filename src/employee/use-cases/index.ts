@@ -62,10 +62,14 @@ export class EmployeeUseCases {
 
     const { department_id: departmentId, ...newEmployee } = employeeInputData;
 
-    const employee = await this.employeeRepository.updateEmployee({
-      ...employeeToUpdate,
-      ...newEmployee
-    } as Employee);
+    const promises: Promise<void | any>[] = [];
+
+    promises.push(
+      this.employeeRepository.updateEmployee({
+        id: employeeToUpdate.id,
+        ...newEmployee
+      } as Employee)
+    );
 
     if (departmentId) {
       const department = await this.departmentUseCases.getDepartmentById(
@@ -76,17 +80,29 @@ export class EmployeeUseCases {
         return null;
       }
 
-      await this.employeeDepartmentUseCases.create({
-        employee,
-        department,
-        created_at: new Date()
-      } as EmployeeDepartment);
+      promises.push(
+        this.employeeDepartmentUseCases.create({
+          employee: employeeToUpdate,
+          department,
+          created_at: new Date()
+        } as EmployeeDepartment)
+      );
     }
 
-    return await this.employeeRepository.getEmployeeById(employee.id);
+    await Promise.all(promises);
+
+    return await this.employeeRepository.getEmployeeById(employeeToUpdate.id);
   };
 
   deleteEmployee = async (id: string) => {
-    return await this.employeeRepository.deleteEmployee(id);
+    const employee = await this.employeeRepository.getEmployeeById(id);
+
+    if (!employee) {
+      return null;
+    }
+
+    await this.employeeRepository.deleteEmployee(id);
+
+    return employee;
   };
 }

@@ -6,6 +6,6 @@ export interface EmployeeRepository {
   createEmployee: (
     employee: Omit<Employee, 'id|is_active|created_at'>
   ) => Promise<Employee>;
-  updateEmployee: (employee: Employee) => Promise<Employee>;
-  deleteEmployee: (id: string) => Promise<Employee | null>;
+  updateEmployee: (employee: Employee) => Promise<void>;
+  deleteEmployee: (id: string) => Promise<void>;
 }

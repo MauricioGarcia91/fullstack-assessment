@@ -48,7 +48,7 @@ export class EmployeeTypeOrmRepository implements EmployeeRepository {
 
   updateEmployee = async (employee: Employee) => {
     try {
-      return await this.employeeRepository.save(employee);
+      await this.employeeRepository.update(employee.id, employee);
     } catch (error) {
       throw `[EMPLOYEE-REPOSITORY] [updateEmployee] ${error}`;
     }
@@ -56,17 +56,7 @@ export class EmployeeTypeOrmRepository implements EmployeeRepository {
 
   deleteEmployee = async (id: string) => {
     try {
-      const employeeDelete = await this.employeeRepository.findOneBy({
-        id
-      });
-
-      if (employeeDelete === null) {
-        return null;
-      }
-
       await this.employeeRepository.delete({ id });
-
-      return employeeDelete;
     } catch (error) {
       throw `[EMPLOYEE-REPOSITORY] [deleteEmployee] ${error}`;
     }
