@@ -1,7 +1,6 @@
 import { Repository } from 'typeorm';
 import { EmployeeRepository } from '../domain/repository';
 import { Employee } from '../domain/entity';
-import { EmployeeInputData } from '../domain/definitions.d';
 
 export class EmployeeTypeOrmRepository implements EmployeeRepository {
   employeeRepository: Repository<Employee>;

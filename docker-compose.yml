@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  fullstack_assessment-db:
+    image: mysql:8.3
+    restart: always
+    env_file:
+      - .env
+    environment:
+      MYSQL_DATABASE: ${DATABASE_NAME}
+      MYSQL_ROOT_USER: ${DATABASE_USER}
+      MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD}
+    ports:
+      - ${DATABASE_PORT}:${DATABASE_DEFAULT_PORT}
+
+  fullstack_assessment-api:
+    build: ./
+    restart: always
+    ports:
+      - ${API_COMPOSE_PORT}:${API_PORT}
+    env_file:
+      - .env
+    environment:
+      DATABASE_HOST: ${DATABASE_COMPOSE_HOST}
+      DATABASE_PORT: ${DATABASE_DEFAULT_PORT}
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_NAME: ${DATABASE_NAME}
+    depends_on:
+      - fullstack_assessment-db
+
+volumes:
+  db-data:
